@@ -66,3 +66,50 @@ bool Grid::IsCellEmpty(int row, int col)
     }
     return false;
 }
+
+int Grid::ClearFullRows()
+{
+    int completedRows = 0;
+    for (int row = numRows - 1; row >= 0; row--)
+    {
+        if (IsRowFull(row))
+        {
+            ClearRow(row);
+            completedRows++;
+        }
+        else if (completedRows > 0)
+        {
+            MoveRowDown(row, completedRows);
+        }
+    }
+    return completedRows;
+}
+
+bool Grid::IsRowFull(int row)
+{
+    for (int column = 0; column < numCols; column++)
+    {
+        if (grid[row][column] == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Grid::ClearRow(int row)
+{
+    for (int column = 0; column < numCols; column++)
+    {
+        grid[row][column] = 0;
+    }
+}
+
+void Grid::MoveRowDown(int row, int numOfRows)
+{
+    for (int column = 0; column < numCols; column++)
+    {
+        grid[row + numOfRows][column] = grid[row][column];
+        grid[row][column] = 0;
+    }
+}

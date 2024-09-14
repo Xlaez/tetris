@@ -13,6 +13,8 @@ public:
     void MoveBlockLeft();
     void MoveBlockRIght();
     void MoveBlockDown();
+    void ResetGame();
+    bool gameOver;
     Grid grid;
 
 private:
